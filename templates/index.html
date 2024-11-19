@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>File Compression</h2>
+
+    <!-- File Upload Form -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="files" class="form-label">Upload Files to Compress:</label>
+        <input type="file" name="files" id="files" class="form-control" multiple>
+      </div>
+      <button type="submit" class="btn btn-primary">Upload and Compress</button>
+    </form>
+
+    <!-- If zip files are ready, show download links -->
+    {% if zip_files %}
+      <div class="mt-4">
+        <h4>Download Your Compressed Files</h4>
+        <ul class="list-group">
+          {% for zip_file in zip_files %}
+            <li class="list-group-item">
+              <a href="{{ zip_file }}" class="btn btn-success">Download {{ zip_file }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+{% endblock content %}
